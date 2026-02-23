@@ -73,3 +73,18 @@ uv run alembic upgrade head
 The application uses a smart entry point `run.py` to handle environment switching.
 
 ```powershell
+# Development Mode (Defaults to local SQLite)
+uv run run.py
+
+# Production Mode (Forces Neon/PostgreSQL)
+uv run run.py --prod
+```
+
+### 5. Services
+```powershell
+# Celery Worker (New Terminal)
+uv run celery -A app.worker.celery_app worker --loglevel=info
+
+# Celery Beat (New Terminal)
+uv run celery -A app.worker.celery_app beat --loglevel=info
+```
