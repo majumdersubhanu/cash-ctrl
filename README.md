@@ -58,3 +58,18 @@ Create a `.env` file based on `.env.example`:
 ```env
 ENVIRONMENT=dev # or 'prod'
 DEV_DATABASE_URL=sqlite+aiosqlite:///./cashctrl.db
+PROD_DATABASE_URL=postgresql://user:pass@host/db?sslmode=require
+REDIS_URL=redis://localhost:6379/0
+SECRET_KEY=...
+```
+
+### 3. Database Initialization
+```powershell
+# Rebuild local database with the latest schema
+uv run alembic upgrade head
+```
+
+### 4. Running the Application
+The application uses a smart entry point `run.py` to handle environment switching.
+
+```powershell
