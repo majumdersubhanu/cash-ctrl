@@ -13,3 +13,6 @@ else:
 
 engine = create_async_engine(DATABASE_URL, connect_args=connect_args, echo=True)
 
+SessionLocal = async_sessionmaker(
+    autocommit=False, autoflush=False, bind=engine, class_=AsyncSession
+)
