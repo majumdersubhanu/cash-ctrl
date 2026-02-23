@@ -283,3 +283,18 @@
                   "RESET_PASSWORD_INVALID_PASSWORD": {
                     "summary": "Password validation failed.",
                     "value": {
+                      "detail": {
+                        "code": "RESET_PASSWORD_INVALID_PASSWORD",
+                        "reason": "Password should be at least 3 characters"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
