@@ -58,3 +58,18 @@ cover/
 
 # Local Database and Temporary Files
 *.db
+*.db-journal
+temp_clean.db
+temp_clean_v2.db
+test_res.txt
+test_res_v2.txt
+test_res_v3.txt
+debug_results.json
+
+# Django stuff:
+*.log
+local_settings.py
+
+# Flask stuff:
+instance/
+.webassets-cache
