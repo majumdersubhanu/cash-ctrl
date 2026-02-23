@@ -358,3 +358,18 @@
               "schema": {
                 "$ref": "#/components/schemas/Body_verify_verify_api_v1_auth_verify_post"
               }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserRead"
+                }
+              }
+            }
+          },
