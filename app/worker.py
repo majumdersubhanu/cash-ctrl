@@ -73,3 +73,18 @@ async def _check_overdue_loans():
     async with SessionLocal() as db:
         today = date.today()
         stmt = select(Loan).join(LoanAgreement).where(
+            Loan.status == LoanStatus.ACTIVE,
+            LoanAgreement.due_date < today
+        )
+        loans = (await db.execute(stmt)).scalars().all()
+        for loan in loans:
+            loan.status = LoanStatus.OVERDUE
+            borrower_id = loan.contact_id if loan.is_lending else loan.user_id
+            b_stmt = select(User).where(User.id == borrower_id)
+            borrower = (await db.execute(b_stmt)).scalar_one_or_none()
+            if borrower:
+                borrower.vouch_score = max(0.0, float(borrower.vouch_score) - 10.0)
+                # Notify User
+                await notification_service.create_notification(
+                    db=db,
+                    user_id=borrower.id,
