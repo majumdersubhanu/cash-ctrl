@@ -58,3 +58,18 @@ async def _process_recurring_transactions():
             elif req.frequency == "Weekly":
                 req.next_run_date = today + relativedelta(weeks=1)
             elif req.frequency == "Monthly":
+                req.next_run_date = today + relativedelta(months=1)
+            elif req.frequency == "Yearly":
+                req.next_run_date = today + relativedelta(years=1)
+        await db.commit()
+        logger.info("Processed recurring transactions batch", extra={"count": len(reqs)})
+
+@celery_app.task(name="process_recurring_transactions")
+def process_recurring_transactions_task():
+    logger.info("Executing scheduled task: process_recurring_transactions_task")
+    asyncio.run(_process_recurring_transactions())
+
+async def _check_overdue_loans():
+    async with SessionLocal() as db:
+        today = date.today()
+        stmt = select(Loan).join(LoanAgreement).where(
