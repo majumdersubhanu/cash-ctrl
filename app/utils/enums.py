@@ -28,3 +28,9 @@ class LoanStatus(str, Enum):
     DEFAULTED = "DEFAULTED"
 
 
+class LoanRepaymentFrequency(str, Enum):
+    LUMP_SUM = "LUMP_SUM"
+    DAILY = "DAILY"
+    WEEKLY = "WEEKLY"
+    MONTHLY = "MONTHLY"
+    YEARLY = "YEARLY"
