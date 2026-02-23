@@ -703,3 +703,18 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/api/v1/accounts/": {
+      "get": {
+        "tags": [
+          "accounts",
+          "accounts"
+        ],
+        "summary": "List Accounts",
+        "operationId": "list_accounts_api_v1_accounts__get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
