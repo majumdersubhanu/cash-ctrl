@@ -43,3 +43,9 @@ class Settings(BaseSettings):
             new_query = urlencode(query_params, doseq=True)
             url = urlunparse(parsed._replace(query=new_query))
 
+        return url
+
+    model_config = {"env_file": ".env"}
+
+
+settings = Settings()
