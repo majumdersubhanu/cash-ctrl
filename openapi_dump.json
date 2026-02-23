@@ -883,3 +883,18 @@
                 "schema": {
                   "$ref": "#/components/schemas/HTTPValidationError"
                 }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "accounts",
+          "accounts"
+        ],
+        "summary": "Delete Account",
+        "operationId": "delete_account_api_v1_accounts__account_id__delete",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
