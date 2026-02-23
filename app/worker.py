@@ -28,3 +28,18 @@ celery_app.conf.update(
     task_serializer="json",
     accept_content=["json"],
     result_serializer="json",
+    timezone="UTC",
+    enable_utc=True,
+)
+
+
+async def _process_recurring_transactions():
+    async with SessionLocal() as db:
+        today = date.today()
+        stmt = select(RecurringTransaction).where(
+            RecurringTransaction.is_active.is_(True),
+            RecurringTransaction.next_run <= today,
+        )
+        reqs = (await db.execute(stmt)).scalars().all()
+        for req in reqs:
+            tx = Transaction(
