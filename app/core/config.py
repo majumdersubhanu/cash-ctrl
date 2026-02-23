@@ -28,3 +28,18 @@ class Settings(BaseSettings):
         if "postgresql+asyncpg://" in url:
             from urllib.parse import urlparse, parse_qs, urlencode, urlunparse
             parsed = urlparse(url)
+            query_params = parse_qs(parsed.query)
+
+            # asyncpg doesn't support 'sslmode', it uses 'ssl'
+            if "sslmode" in query_params:
+                ssl_mode = query_params.pop("sslmode")[0]
+                # asyncpg uses 'ssl' parameter for the mode if it's a string
+                query_params["ssl"] = [ssl_mode]
+
+            # Remove other libpq-specific params that asyncpg rejects
+            query_params.pop("channel_binding", None)
+
+            # Reconstruct the URL
+            new_query = urlencode(query_params, doseq=True)
+            url = urlunparse(parsed._replace(query=new_query))
+
