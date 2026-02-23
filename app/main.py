@@ -13,3 +13,18 @@ from app.db.session import engine
 from app.schemas.user import UserCreate, UserRead, UserUpdate
 from app.api.middleware import LoggingMiddleware
 from app.core.security import limiter
+
+setup_logging()
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Startup
+    yield
+    # Shutdown
+    await engine.dispose()
+
+
+app = FastAPI(
+    title="CashCtrl API",
+    version="1.0.0",
