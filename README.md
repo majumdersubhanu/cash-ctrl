@@ -43,3 +43,18 @@ The application bridges the gap between individual finance management and social
 ## 🚀 Quick Start
 
 ### 1. Installation
+```powershell
+# Clone and enter
+git clone <repository-url>
+cd cash-ctrl
+
+# Setup environment
+uv venv
+uv sync
+```
+
+### 2. Configuration
+Create a `.env` file based on `.env.example`:
+```env
+ENVIRONMENT=dev # or 'prod'
+DEV_DATABASE_URL=sqlite+aiosqlite:///./cashctrl.db
