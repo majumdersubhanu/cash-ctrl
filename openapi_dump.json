@@ -118,3 +118,18 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "401": {
+            "description": "Missing token or inactive user."
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
