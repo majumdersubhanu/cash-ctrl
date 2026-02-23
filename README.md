@@ -28,3 +28,18 @@ The application bridges the gap between individual finance management and social
 - **Database Stability**: Standardized for **Neon PostgreSQL** with intelligent URL parsing and disabled statement caching for pooling compatibility.
 - **Background Workers**: Celery-based processing for recurring transactions, interest calculations, and overdue alerts.
 
+---
+
+## 🛠️ Technology Stack
+
+- **Backend**: Python 3.12, FastAPI
+- **Database**: PostgreSQL (Production) / SQLite (Development)
+- **Task Queue**: Celery with Redis
+- **Migrations**: Alembic (Timezone-aware timestamps)
+- **Environment**: Managed via `uv`
+
+---
+
+## 🚀 Quick Start
+
+### 1. Installation
