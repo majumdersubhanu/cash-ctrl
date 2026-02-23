@@ -13,3 +13,18 @@ DUPLICATE ROUTES:
 ALL ROUTES:
 /openapi.json | fastapi.applications | openapi
 /docs | fastapi.applications | swagger_ui_html
+/docs/oauth2-redirect | fastapi.applications | swagger_ui_redirect
+/redoc | fastapi.applications | redoc_html
+/ | app.main | root
+/health | app.main | health_check
+/api/v1/auth/jwt/login | fastapi_users.router.auth | auth:jwt.login
+/api/v1/auth/jwt/logout | fastapi_users.router.auth | auth:jwt.logout
+/api/v1/auth/register | fastapi_users.router.register | register:register
+/api/v1/auth/forgot-password | fastapi_users.router.reset | reset:forgot_password
+/api/v1/auth/reset-password | fastapi_users.router.reset | reset:reset_password
+/api/v1/auth/request-verify-token | fastapi_users.router.verify | verify:request-token
+/api/v1/auth/verify | fastapi_users.router.verify | verify:verify
+/api/v1/users/me | fastapi_users.router.users | users:current_user
+/api/v1/users/me | fastapi_users.router.users | users:patch_current_user
+/api/v1/users/{id} | fastapi_users.router.users | users:user
+/api/v1/users/{id} | fastapi_users.router.users | users:patch_user
