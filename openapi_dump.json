@@ -3148,3 +3148,18 @@
       "CategoryType": {
         "type": "string",
         "enum": [
+          "INCOME",
+          "EXPENSE"
+        ],
+        "title": "CategoryType"
+      },
+      "ConnectionRequestCreate": {
+        "properties": {
+          "receiver_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Receiver Id"
+          }
+        },
+        "type": "object",
+        "required": [
