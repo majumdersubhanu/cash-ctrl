@@ -1213,3 +1213,18 @@
         "summary": "List Contacts",
         "operationId": "list_contacts_api_v1_p2p_contacts_get",
         "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ContactResponse"
+                  },
+                  "type": "array",
+                  "title": "Response List Contacts Api V1 P2P Contacts Get"
+                }
+              }
+            }
+          }
+        },
