@@ -4438,3 +4438,18 @@
         },
         "type": "object",
         "required": [
+          "id",
+          "email",
+          "vouch_score",
+          "is_mfa_enabled"
+        ],
+        "title": "UserRead"
+      },
+      "UserUpdate": {
+        "properties": {
+          "password": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
