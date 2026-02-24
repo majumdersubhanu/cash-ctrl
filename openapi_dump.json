@@ -3178,3 +3178,18 @@
             "type": "string",
             "format": "uuid",
             "title": "Sender Id"
+          },
+          "receiver_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Receiver Id"
+          },
+          "status": {
+            "$ref": "#/components/schemas/ConnectionRequestStatus"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          }
+        },
