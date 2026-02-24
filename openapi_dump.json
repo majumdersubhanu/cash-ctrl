@@ -4063,3 +4063,18 @@
         },
         "type": "object",
         "required": [
+          "account_id",
+          "type",
+          "amount"
+        ],
+        "title": "TransactionCreate"
+      },
+      "TransactionFilter": {
+        "properties": {
+          "account_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
