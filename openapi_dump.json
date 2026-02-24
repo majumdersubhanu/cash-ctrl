@@ -2218,3 +2218,18 @@
                   "items": {
                     "$ref": "#/components/schemas/RecurringTransactionResponse"
                   },
+                  "type": "array",
+                  "title": "Response List Recurring Jobs Api V1 Recurring Transactions  Get"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
