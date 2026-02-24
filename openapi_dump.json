@@ -4423,3 +4423,18 @@
             "default": false
           },
           "is_verified": {
+            "type": "boolean",
+            "title": "Is Verified",
+            "default": false
+          },
+          "vouch_score": {
+            "type": "number",
+            "title": "Vouch Score"
+          },
+          "is_mfa_enabled": {
+            "type": "boolean",
+            "title": "Is Mfa Enabled"
+          }
+        },
+        "type": "object",
+        "required": [
