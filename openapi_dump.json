@@ -3058,3 +3058,18 @@
         ],
         "title": "BudgetResponse"
       },
+      "BulkDeleteRequest": {
+        "properties": {
+          "transaction_ids": {
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "type": "array",
+            "title": "Transaction Ids"
+          }
+        },
+        "type": "object",
+        "required": [
+          "transaction_ids"
+        ],
