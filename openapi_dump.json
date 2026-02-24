@@ -3838,3 +3838,18 @@
           "SUCCESS",
           "WARNING",
           "ALERT"
+        ],
+        "title": "NotificationType"
+      },
+      "NotificationUpdate": {
+        "properties": {
+          "is_read": {
+            "type": "boolean",
+            "title": "Is Read"
+          }
+        },
+        "type": "object",
+        "required": [
+          "is_read"
+        ],
+        "title": "NotificationUpdate"
