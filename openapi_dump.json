@@ -3943,3 +3943,18 @@
           "frequency": {
             "type": "string",
             "title": "Frequency"
+          },
+          "next_run_date": {
+            "type": "string",
+            "format": "date",
+            "title": "Next Run Date"
+          },
+          "is_active": {
+            "type": "boolean",
+            "title": "Is Active"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "account_id",
