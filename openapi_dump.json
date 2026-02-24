@@ -1963,3 +1963,18 @@
             "OAuth2PasswordBearer": []
           }
         ]
+      }
+    },
+    "/api/v1/analytics/anomalies": {
+      "get": {
+        "tags": [
+          "analytics",
+          "analytics"
+        ],
+        "summary": "Get Anomalies",
+        "operationId": "get_anomalies_api_v1_analytics_anomalies_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
