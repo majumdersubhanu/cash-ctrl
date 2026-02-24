@@ -2878,3 +2878,18 @@
             "title": "Email"
           }
         },
+        "type": "object",
+        "required": [
+          "email"
+        ],
+        "title": "Body_verify_request_token_api_v1_auth_request_verify_token_post"
+      },
+      "Body_verify_verify_api_v1_auth_verify_post": {
+        "properties": {
+          "token": {
+            "type": "string",
+            "title": "Token"
+          }
+        },
+        "type": "object",
+        "required": [
