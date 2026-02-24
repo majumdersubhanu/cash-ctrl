@@ -2293,3 +2293,18 @@
               "application/json": {
                 "schema": {}
               }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/data/export/csv": {
+      "get": {
+        "tags": [
+          "data",
+          "data"
