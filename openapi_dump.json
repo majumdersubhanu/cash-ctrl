@@ -3808,3 +3808,18 @@
           "user_id": {
             "type": "string",
             "format": "uuid",
+            "title": "User Id"
+          },
+          "is_read": {
+            "type": "boolean",
+            "title": "Is Read"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "title",
