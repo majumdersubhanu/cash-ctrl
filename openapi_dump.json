@@ -3643,3 +3643,18 @@
         "title": "LoanCreate"
       },
       "LoanRepaymentFrequency": {
+        "type": "string",
+        "enum": [
+          "LUMP_SUM",
+          "DAILY",
+          "WEEKLY",
+          "MONTHLY",
+          "YEARLY"
+        ],
+        "title": "LoanRepaymentFrequency"
+      },
+      "LoanResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
