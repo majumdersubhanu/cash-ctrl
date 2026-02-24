@@ -2023,3 +2023,18 @@
       "post": {
         "tags": [
           "budgets",
+          "budgets"
+        ],
+        "summary": "Create Budget",
+        "operationId": "create_budget_api_v1_budgets__post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BudgetCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
