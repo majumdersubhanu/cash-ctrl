@@ -2743,3 +2743,18 @@
             ],
             "title": "Is Archived"
           }
+        },
+        "type": "object",
+        "title": "AccountUpdate"
+      },
+      "BearerResponse": {
+        "properties": {
+          "access_token": {
+            "type": "string",
+            "title": "Access Token"
+          },
+          "token_type": {
+            "type": "string",
+            "title": "Token Type"
+          }
+        },
