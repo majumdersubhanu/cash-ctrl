@@ -2668,3 +2668,18 @@
         "type": "object",
         "required": [
           "id",
+          "name",
+          "type",
+          "currency",
+          "balance",
+          "is_archived",
+          "created_at"
+        ],
+        "title": "AccountResponse"
+      },
+      "AccountType": {
+        "type": "string",
+        "enum": [
+          "CASH",
+          "BANK",
+          "CARD",
