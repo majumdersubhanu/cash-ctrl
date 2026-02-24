@@ -3043,3 +3043,18 @@
                 "type": "boolean"
               },
               {
+                "type": "null"
+              }
+            ],
+            "title": "Is Overrun",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "amount",
+          "period"
+        ],
+        "title": "BudgetResponse"
+      },
