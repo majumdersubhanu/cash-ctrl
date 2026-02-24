@@ -3823,3 +3823,18 @@
         "type": "object",
         "required": [
           "title",
+          "message",
+          "id",
+          "user_id",
+          "is_read",
+          "created_at"
+        ],
+        "title": "NotificationResponse"
+      },
+      "NotificationType": {
+        "type": "string",
+        "enum": [
+          "INFO",
+          "SUCCESS",
+          "WARNING",
+          "ALERT"
