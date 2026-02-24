@@ -1168,3 +1168,18 @@
         "summary": "Bulk Delete Transactions",
         "operationId": "bulk_delete_transactions_api_v1_transactions_bulk_delete_post",
         "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkDeleteRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
