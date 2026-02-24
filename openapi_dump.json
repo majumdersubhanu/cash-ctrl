@@ -2683,3 +2683,18 @@
           "CASH",
           "BANK",
           "CARD",
+          "WALLET"
+        ],
+        "title": "AccountType"
+      },
+      "AccountUpdate": {
+        "properties": {
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
