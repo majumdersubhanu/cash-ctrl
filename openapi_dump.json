@@ -3718,3 +3718,18 @@
                 "type": "null"
               }
             ],
+            "title": "Funding Account Id"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "agreements": {
+            "items": {
+              "$ref": "#/components/schemas/LoanAgreementResponse"
+            },
+            "type": "array",
+            "title": "Agreements",
+            "default": []
+          }
