@@ -3988,3 +3988,18 @@
           "note": {
             "anyOf": [
               {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Note"
+          }
+        },
+        "type": "object",
+        "required": [
+          "amount",
+          "account_id"
+        ],
+        "title": "RepayLoanRequest"
