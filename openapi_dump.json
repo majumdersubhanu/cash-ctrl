@@ -3073,3 +3073,18 @@
         "required": [
           "transaction_ids"
         ],
+        "title": "BulkDeleteRequest"
+      },
+      "CategoryCreate": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "type": {
+            "$ref": "#/components/schemas/CategoryType"
+          },
+          "parent_id": {
+            "anyOf": [
+              {
+                "type": "string",
