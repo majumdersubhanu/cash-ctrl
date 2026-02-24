@@ -4243,3 +4243,18 @@
                 "type": "string"
               },
               {
+                "type": "null"
+              }
+            ],
+            "title": "Note"
+          },
+          "receipt_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Receipt Url"
