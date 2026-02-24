@@ -3613,3 +3613,18 @@
           },
           "funding_account_id": {
             "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Funding Account Id"
+          },
+          "agreement": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/LoanAgreementCreate"
+              },
