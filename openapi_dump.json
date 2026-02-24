@@ -1858,3 +1858,18 @@
               "application/json": {
                 "schema": {}
               }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/analytics/category-spending": {
+      "get": {
+        "tags": [
+          "analytics",
+          "analytics"
