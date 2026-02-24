@@ -2953,3 +2953,18 @@
           }
         },
         "type": "object",
+        "required": [
+          "amount",
+          "period"
+        ],
+        "title": "BudgetCreate"
+      },
+      "BudgetResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "category_id": {
+            "anyOf": [
