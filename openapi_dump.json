@@ -1693,3 +1693,18 @@
           }
         ]
       }
+    },
+    "/api/v1/social/contacts/{contact_id}/ledger": {
+      "get": {
+        "tags": [
+          "social",
+          "social"
+        ],
+        "summary": "Get Contact Public Ledger",
+        "description": "Allows a user to query the P2P lending history of a *trusted contact*\nto evaluate their creditworthiness before issuing a new loan.",
+        "operationId": "get_contact_public_ledger_api_v1_social_contacts__contact_id__ledger_get",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
