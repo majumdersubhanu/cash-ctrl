@@ -1138,3 +1138,18 @@
                   "type": "array",
                   "title": "Response Create Transfer Api V1 Transactions Transfer Post"
                 }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
