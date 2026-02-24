@@ -3388,3 +3388,18 @@
               },
               {
                 "type": "null"
+              }
+            ],
+            "title": "Account Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "target_amount": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string",
