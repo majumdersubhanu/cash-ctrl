@@ -1393,3 +1393,18 @@
           "p2p-lending"
         ],
         "summary": "List Loans",
+        "operationId": "list_loans_api_v1_p2p_loans_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/LoanResponse"
+                  },
+                  "type": "array",
+                  "title": "Response List Loans Api V1 P2P Loans Get"
+                }
+              }
+            }
