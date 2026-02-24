@@ -4273,3 +4273,18 @@
         "type": "object",
         "required": [
           "id",
+          "account_id",
+          "type",
+          "amount",
+          "transaction_date",
+          "created_at"
+        ],
+        "title": "TransactionResponse"
+      },
+      "TransactionType": {
+        "type": "string",
+        "enum": [
+          "INCOME",
+          "EXPENSE",
+          "TRANSFER"
+        ],
