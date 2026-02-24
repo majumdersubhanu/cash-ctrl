@@ -2758,3 +2758,18 @@
             "title": "Token Type"
           }
         },
+        "type": "object",
+        "required": [
+          "access_token",
+          "token_type"
+        ],
+        "title": "BearerResponse"
+      },
+      "Body_auth_jwt_login_api_v1_auth_jwt_login_post": {
+        "properties": {
+          "grant_type": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^password$"
+              },
