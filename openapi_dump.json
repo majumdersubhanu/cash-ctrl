@@ -3268,3 +3268,18 @@
         "type": "object",
         "required": [
           "name"
+        ],
+        "title": "ContactCreate"
+      },
+      "ContactResponse": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "email": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
