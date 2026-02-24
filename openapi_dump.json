@@ -3853,3 +3853,18 @@
           "is_read"
         ],
         "title": "NotificationUpdate"
+      },
+      "RecurringTransactionCreate": {
+        "properties": {
+          "account_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Account Id"
+          },
+          "category_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
