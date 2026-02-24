@@ -1288,3 +1288,18 @@
         ],
         "summary": "Send Connection",
         "operationId": "send_connection_api_v1_p2p_connections_send_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConnectionRequestCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
