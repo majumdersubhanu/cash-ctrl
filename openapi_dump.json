@@ -1228,3 +1228,18 @@
             }
           }
         },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "p2p",
+          "p2p-lending"
+        ],
+        "summary": "Create Contact",
+        "operationId": "create_contact_api_v1_p2p_contacts_post",
+        "requestBody": {
+          "content": {
