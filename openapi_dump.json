@@ -2578,3 +2578,18 @@
       }
     },
     "/api/v1/notifications/mark-all-read": {
+      "post": {
+        "tags": [
+          "notifications",
+          "notifications"
+        ],
+        "summary": "Mark All Read",
+        "description": "Mark all unread notifications for the current user as read.",
+        "operationId": "mark_all_read_api_v1_notifications_mark_all_read_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
