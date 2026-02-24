@@ -3508,3 +3508,18 @@
         "type": "object",
         "title": "HTTPValidationError"
       },
+      "LoanAgreementCreate": {
+        "properties": {
+          "frequency": {
+            "$ref": "#/components/schemas/LoanRepaymentFrequency"
+          },
+          "due_date": {
+            "type": "string",
+            "format": "date",
+            "title": "Due Date"
+          }
+        },
+        "type": "object",
+        "required": [
+          "frequency",
+          "due_date"
