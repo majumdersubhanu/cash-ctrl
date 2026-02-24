@@ -1108,3 +1108,18 @@
         ]
       }
     },
+    "/api/v1/transactions/transfer": {
+      "post": {
+        "tags": [
+          "transactions",
+          "transactions"
+        ],
+        "summary": "Create Transfer",
+        "operationId": "create_transfer_api_v1_transactions_transfer_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TransferCreate"
+              }
+            }
