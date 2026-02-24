@@ -1813,3 +1813,18 @@
         },
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/audit/": {
+      "get": {
+        "tags": [
+          "analytics"
+        ],
+        "summary": "Get Financial Audit",
+        "description": "Returns a comprehensive financial health audit for the authenticated user.",
+        "operationId": "get_financial_audit_api_v1_audit__get",
+        "responses": {
+          "200": {
