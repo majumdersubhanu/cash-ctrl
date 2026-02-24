@@ -1408,3 +1408,18 @@
                 }
               }
             }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "p2p",
+          "p2p-lending"
+        ],
+        "summary": "Create Loan",
+        "operationId": "create_loan_api_v1_p2p_loans_post",
