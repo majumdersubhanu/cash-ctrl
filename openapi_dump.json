@@ -3373,3 +3373,18 @@
           }
         },
         "type": "object",
+        "required": [
+          "amount"
+        ],
+        "title": "GoalContribute"
+      },
+      "GoalCreate": {
+        "properties": {
+          "account_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
