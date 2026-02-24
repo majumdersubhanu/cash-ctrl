@@ -1048,3 +1048,18 @@
                 }
               }
             }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/transactions/filter": {
+      "post": {
+        "tags": [
+          "transactions",
+          "transactions"
+        ],
