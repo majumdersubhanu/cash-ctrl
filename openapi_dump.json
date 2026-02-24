@@ -1318,3 +1318,18 @@
                 }
               }
             }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/p2p/connections/{request_id}": {
+      "patch": {
+        "tags": [
+          "p2p",
+          "p2p-lending"
+        ],
