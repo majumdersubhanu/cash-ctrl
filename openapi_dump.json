@@ -2233,3 +2233,18 @@
       },
       "post": {
         "tags": [
+          "recurring",
+          "recurring"
+        ],
+        "summary": "Create Recurring Job",
+        "operationId": "create_recurring_job_api_v1_recurring_transactions__post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecurringTransactionCreate"
+              }
+            }
+          },
+          "required": true
+        },
