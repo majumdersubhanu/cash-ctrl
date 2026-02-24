@@ -2833,3 +2833,18 @@
           }
         },
         "type": "object",
+        "required": [
+          "file"
+        ],
+        "title": "Body_import_transactions_csv_api_v1_data_import_csv_post"
+      },
+      "Body_reset_forgot_password_api_v1_auth_forgot_password_post": {
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "title": "Email"
+          }
+        },
+        "type": "object",
+        "required": [
