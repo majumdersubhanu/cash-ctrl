@@ -3028,3 +3028,18 @@
             "anyOf": [
               {
                 "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Remaining Amount",
+            "default": "0"
+          },
+          "is_overrun": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
