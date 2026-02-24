@@ -4108,3 +4108,18 @@
             "title": "Start Date"
           },
           "end_date": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "End Date"
+          },
+          "min_amount": {
+            "anyOf": [
+              {
+                "type": "number"
