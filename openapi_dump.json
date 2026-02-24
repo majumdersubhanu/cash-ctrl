@@ -3418,3 +3418,18 @@
                 "type": "null"
               }
             ],
+            "title": "Deadline"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "target_amount"
+        ],
+        "title": "GoalCreate"
+      },
+      "GoalResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
