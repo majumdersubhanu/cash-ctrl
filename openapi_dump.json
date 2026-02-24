@@ -2608,3 +2608,18 @@
     "schemas": {
       "AccountCreate": {
         "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "type": {
+            "$ref": "#/components/schemas/AccountType"
+          },
+          "currency": {
+            "type": "string",
+            "title": "Currency",
+            "default": "INR"
+          },
+          "balance": {
+            "type": "number",
+            "title": "Balance",
