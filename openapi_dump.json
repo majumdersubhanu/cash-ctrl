@@ -1933,3 +1933,18 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/analytics/safe-to-spend": {
+      "get": {
+        "tags": [
+          "analytics",
+          "analytics"
+        ],
+        "summary": "Safe To Spend",
+        "operationId": "safe_to_spend_api_v1_analytics_safe_to_spend_get",
