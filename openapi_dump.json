@@ -3958,3 +3958,18 @@
         "required": [
           "id",
           "account_id",
+          "amount",
+          "type",
+          "frequency",
+          "next_run_date",
+          "is_active"
+        ],
+        "title": "RecurringTransactionResponse"
+      },
+      "RepayLoanRequest": {
+        "properties": {
+          "amount": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
