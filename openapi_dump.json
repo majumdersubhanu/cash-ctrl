@@ -3703,3 +3703,18 @@
                 "type": "string"
               },
               {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "funding_account_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
