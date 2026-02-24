@@ -3163,3 +3163,18 @@
         },
         "type": "object",
         "required": [
+          "receiver_id"
+        ],
+        "title": "ConnectionRequestCreate"
+      },
+      "ConnectionRequestResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "sender_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Sender Id"
