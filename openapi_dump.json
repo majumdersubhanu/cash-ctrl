@@ -3778,3 +3778,18 @@
       "NotificationResponse": {
         "properties": {
           "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "$ref": "#/components/schemas/NotificationType",
+            "default": "INFO"
+          },
+          "link": {
+            "anyOf": [
+              {
+                "type": "string"
