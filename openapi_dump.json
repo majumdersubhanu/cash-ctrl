@@ -3523,3 +3523,18 @@
         "required": [
           "frequency",
           "due_date"
+        ],
+        "title": "LoanAgreementCreate"
+      },
+      "LoanAgreementResponse": {
+        "properties": {
+          "frequency": {
+            "$ref": "#/components/schemas/LoanRepaymentFrequency"
+          },
+          "due_date": {
+            "type": "string",
+            "format": "date",
+            "title": "Due Date"
+          },
+          "id": {
+            "type": "string",
