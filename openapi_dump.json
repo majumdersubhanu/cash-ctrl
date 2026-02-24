@@ -2443,3 +2443,18 @@
         "tags": [
           "social",
           "gamification"
+        ],
+        "summary": "Get Achievements",
+        "operationId": "get_achievements_api_v1_gamification_achievements_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        },
+        "security": [
+          {
