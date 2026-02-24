@@ -3193,3 +3193,18 @@
             "title": "Created At"
           }
         },
+        "type": "object",
+        "required": [
+          "id",
+          "sender_id",
+          "receiver_id",
+          "status",
+          "created_at"
+        ],
+        "title": "ConnectionRequestResponse"
+      },
+      "ConnectionRequestStatus": {
+        "type": "string",
+        "enum": [
+          "PENDING",
+          "ACCEPTED",
