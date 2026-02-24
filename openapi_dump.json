@@ -2323,3 +2323,18 @@
           }
         },
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/data/export/json": {
+      "get": {
+        "tags": [
+          "data",
+          "data"
+        ],
+        "summary": "Export Json",
+        "description": "Export all transactions of the user as a JSON file.",
+        "operationId": "export_json_api_v1_data_export_json_get",
