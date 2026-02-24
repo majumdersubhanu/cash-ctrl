@@ -2728,3 +2728,18 @@
               },
               {
                 "type": "null"
+              }
+            ],
+            "title": "Balance"
+          },
+          "is_archived": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Is Archived"
+          }
