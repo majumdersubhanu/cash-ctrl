@@ -2008,3 +2008,18 @@
                     "$ref": "#/components/schemas/BudgetResponse"
                   },
                   "type": "array",
+                  "title": "Response List Budgets Api V1 Budgets  Get"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "budgets",
