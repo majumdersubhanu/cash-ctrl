@@ -4333,3 +4333,18 @@
               {
                 "type": "null"
               }
+            ],
+            "title": "Note"
+          }
+        },
+        "type": "object",
+        "required": [
+          "from_account_id",
+          "to_account_id",
+          "amount"
+        ],
+        "title": "TransferCreate"
+      },
+      "UserCreate": {
+        "properties": {
+          "email": {
