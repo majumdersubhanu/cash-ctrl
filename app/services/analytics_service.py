@@ -103,3 +103,18 @@ class AnalyticsService:
                 Transaction.user_id == user_id,
                 Transaction.type == TransactionType.EXPENSE,
                 extract("month", Transaction.transaction_date) == now.month,
+                extract("year", Transaction.transaction_date) == now.year,
+            )
+            if b.category_id:
+                tx_stmt = tx_stmt.where(Transaction.category_id == b.category_id)
+
+            spent = float((await db.execute(tx_stmt)).scalar() or 0.0)
+            remaining_budget += max(0.0, float(b.amount) - spent)
+
+        return total_liquid - remaining_budget
+
+    async def detect_anomalies(self, db: AsyncSession, user_id: uuid.UUID):
+        """
+        Detect spending anomalies (transactions that are 200% higher than the avg for that category).
+        """
+        # Get avg per category
