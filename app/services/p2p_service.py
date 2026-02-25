@@ -373,3 +373,18 @@ class P2PService:
         Flags a loan as disputed, heavily penalizing trust score.
         """
         stmt = select(Loan).where(Loan.id == loan_id, Loan.user_id == user_id)
+        loan = (await db.execute(stmt)).scalar_one_or_none()
+        if not loan:
+            raise ValueError("Loan not found")
+
+        loan.is_disputed = True
+
+        # Penalize local trust score with this specific contact
+        contact_stmt = select(Contact).where(Contact.id == loan.contact_id)
+        contact = (await db.execute(contact_stmt)).scalar_one_or_none()
+        if contact:
+            contact.trust_score = max(0.0, contact.trust_score - 20.0)
+
+        # Massively penalize global Vouch Score for Disputing / Defaulting
+        from app.models.user import User
+
