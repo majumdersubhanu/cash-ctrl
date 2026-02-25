@@ -163,3 +163,18 @@ class P2PService:
             description=payload.description,
             funding_account_id=payload.funding_account_id,
             status=LoanStatus.PENDING,
+        )
+        db.add(loan)
+        await db.flush()
+
+        if payload.agreement:
+            agreement = LoanAgreement(
+                loan_id=loan.id,
+                frequency=payload.agreement.frequency,
+                due_date=payload.agreement.due_date,
+            )
+            db.add(agreement)
+
+        await db.commit()
+
+        # Notify borrower if linked user exists
