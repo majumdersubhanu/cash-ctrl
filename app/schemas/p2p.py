@@ -28,3 +28,18 @@ class ContactResponse(ContactBase):
 
 class LoanAgreementCreate(BaseModel):
     frequency: LoanRepaymentFrequency
+    due_date: datetime.date
+
+
+class LoanAgreementResponse(LoanAgreementCreate):
+    id: UUID
+    model_config = ConfigDict(from_attributes=True)
+
+
+class LoanCreate(BaseModel):
+    contact_id: UUID
+    is_lending: bool
+    amount: Decimal
+    currency: Optional[str] = "USD"
+    interest_rate: Optional[Decimal] = None
+    description: Optional[str] = None
