@@ -58,3 +58,18 @@ class Loan(Base, UUIDMixin, TimestampMixin):
 
 
 class LoanAgreement(Base, UUIDMixin, TimestampMixin):
+    """
+    Sub-model storing the negotiated terms of the loan lifecycle.
+    """
+
+    __tablename__ = "loan_agreements"
+
+    loan_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("loans.id"))
+
+    frequency: Mapped[LoanRepaymentFrequency] = mapped_column(
+        Enum(LoanRepaymentFrequency)
+    )
+    due_date: Mapped[datetime.date] = mapped_column(Date)
+
+    loan: Mapped["Loan"] = relationship(back_populates="agreements")
+
