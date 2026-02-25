@@ -58,3 +58,18 @@ class AnalyticsService:
                 func.sum(Transaction.amount).label("total"),
             )
             .where(
+                Transaction.user_id == user_id,
+                Transaction.transaction_date >= start_date,
+                Transaction.type.in_([TransactionType.INCOME, TransactionType.EXPENSE]),
+            )
+            .group_by("year", "month", Transaction.type)
+            .order_by("year", "month")
+        )
+
+        result = await db.execute(stmt)
+        trends = {}
+        for row in result.all():
+            period = f"{int(row.year)}-{int(row.month):02d}"
+            if period not in trends:
+                trends[period] = {"income": 0.0, "expense": 0.0}
+
