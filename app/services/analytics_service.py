@@ -88,3 +88,18 @@ class AnalyticsService:
         now = datetime.now()
 
         # 1. Total liquid assets
+        acc_stmt = select(func.sum(Account.balance)).where(
+            Account.user_id == user_id, Account.type.in_(["BANK", "CASH", "WALLET"])
+        )
+        total_liquid = float((await db.execute(acc_stmt)).scalar() or 0.0)
+
+        # 2. Remaining budgets for current month
+        budget_stmt = select(Budget).where(Budget.user_id == user_id)
+        budgets = (await db.execute(budget_stmt)).scalars().all()
+
+        remaining_budget = 0.0
+        for b in budgets:
+            tx_stmt = select(func.sum(Transaction.amount)).where(
+                Transaction.user_id == user_id,
+                Transaction.type == TransactionType.EXPENSE,
+                extract("month", Transaction.transaction_date) == now.month,
