@@ -28,3 +28,7 @@ class Notification(Base, UUIDMixin, TimestampMixin):
         SQLEnum(NotificationType), default=NotificationType.INFO
     )
     
+    is_read: Mapped[bool] = mapped_column(Boolean, default=False)
+    link: Mapped[Optional[str]] = mapped_column(String(500), nullable=True)
+
+    user: Mapped["User"] = relationship(backref="notifications")
