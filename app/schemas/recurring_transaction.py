@@ -13,3 +13,17 @@ class RecurringTransactionCreate(BaseModel):
     amount: Decimal
     type: TransactionType
     frequency: str
+    next_run_date: date
+
+
+class RecurringTransactionResponse(BaseModel):
+    id: UUID
+    account_id: UUID
+    category_id: Optional[UUID] = None
+    amount: Decimal
+    type: TransactionType
+    frequency: str
+    next_run_date: date
+    is_active: bool
+
+    model_config = ConfigDict(from_attributes=True)
