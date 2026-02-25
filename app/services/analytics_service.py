@@ -13,3 +13,18 @@ from app.utils.enums import TransactionType
 
 class AnalyticsService:
     """Service providing intelligent financial insights, spending patterns, and net worth trends."""
+
+    async def get_monthly_expense(self, db: AsyncSession, user_id: uuid.UUID) -> float:
+        """Calculates total expense for the current month."""
+        now = datetime.now()
+        stmt = select(func.sum(Transaction.amount).label("total")).where(
+            Transaction.user_id == user_id,
+            Transaction.type == TransactionType.EXPENSE,
+            extract("month", Transaction.transaction_date) == now.month,
+            extract("year", Transaction.transaction_date) == now.year,
+        )
+        result = await db.execute(stmt)
+        return float(result.scalar() or 0.0)
+
+    async def get_category_spending(self, db: AsyncSession, user_id: uuid.UUID):
+        now = datetime.now()
