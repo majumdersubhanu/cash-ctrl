@@ -133,3 +133,18 @@ class P2PService:
             trust_score=receiver.vouch_score,
             is_trusted=True,
         )
+
+        db.add_all([contact_for_receiver, contact_for_sender])
+        await db.commit()
+        await db.refresh(req)
+        return req
+
+    async def create_loan(self, db: AsyncSession, user_id: uuid.UUID, payload) -> Loan:
+        """
+        Initializes a new P2P loan registry.
+        """
+        # 1. Evaluate contact
+        stmt = select(Contact).where(
+            Contact.id == payload.contact_id, Contact.user_id == user_id
+        )
+        result = await db.execute(stmt)
