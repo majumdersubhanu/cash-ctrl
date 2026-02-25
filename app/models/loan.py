@@ -28,3 +28,18 @@ class Loan(Base, UUIDMixin, TimestampMixin):
     is_lending: Mapped[bool] = mapped_column(default=True)
 
     amount: Mapped[Decimal] = mapped_column(Numeric(12, 2))
+    currency: Mapped[str] = mapped_column(String, default="USD")
+    interest_rate: Mapped[Optional[Decimal]] = mapped_column(Numeric(5, 2))
+
+    status: Mapped[LoanStatus] = mapped_column(
+        Enum(LoanStatus), default=LoanStatus.PENDING
+    )
+    is_disputed: Mapped[bool] = mapped_column(Boolean, default=False)
+
+    description: Mapped[Optional[str]] = mapped_column(Text)
+    attachment_url: Mapped[Optional[str]] = mapped_column(String)
+
+    # Financial linkage
+    funding_account_id: Mapped[Optional[uuid.UUID]] = mapped_column(
+        ForeignKey("accounts.id")
+    )
