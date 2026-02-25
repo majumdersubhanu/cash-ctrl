@@ -73,3 +73,18 @@ class TransactionService:
         note: Optional[str] = None,
     ) -> tuple[Transaction, Transaction]:
 
+        # Pull accounts
+        from_acc = await self.account_repo.get_by_id(db, from_account_id)
+        to_acc = await self.account_repo.get_by_id(db, to_account_id)
+
+        if not from_acc or not to_acc:
+            raise ValueError("Invalid account identifiers provided.")
+        if from_acc.user_id != user_id or to_acc.user_id != user_id:
+            raise ValueError("Accounts do not belong to the user.")
+        if from_acc.balance < amount:
+            raise ValueError(f"Insufficient funds in account {from_acc.name}.")
+
+        from_acc.balance -= amount
+        to_acc.balance += amount
+
+        expense_tx = Transaction(
