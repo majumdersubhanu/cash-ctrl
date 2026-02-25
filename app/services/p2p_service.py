@@ -103,3 +103,18 @@ class P2PService:
         if not req:
             raise ValueError("Pending connection request not found.")
 
+        if not accept:
+            req.status = ConnectionRequestStatus.REJECTED
+            await db.commit()
+            return req
+
+        # If accepted, map the reciprocal P2P Contacts implicitly.
+        req.status = ConnectionRequestStatus.ACCEPTED
+
+        sender = (
+            await db.execute(select(User).where(User.id == req.sender_id))
+        ).scalar_one()
+        receiver = (
+            await db.execute(select(User).where(User.id == req.receiver_id))
+        ).scalar_one()
+
