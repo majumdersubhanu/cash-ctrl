@@ -88,3 +88,18 @@ class P2PService:
     async def process_connection_request(
         self, db: AsyncSession, user_id: uuid.UUID, request_id: uuid.UUID, accept: bool
     ):
+        from app.models.connection_request import (
+            ConnectionRequest,
+            ConnectionRequestStatus,
+        )
+        from app.models.user import User
+
+        stmt = select(ConnectionRequest).where(
+            ConnectionRequest.id == request_id,
+            ConnectionRequest.receiver_id == user_id,
+            ConnectionRequest.status == ConnectionRequestStatus.PENDING,
+        )
+        req = (await db.execute(stmt)).scalar_one_or_none()
+        if not req:
+            raise ValueError("Pending connection request not found.")
+
