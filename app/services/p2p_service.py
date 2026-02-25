@@ -73,3 +73,18 @@ class P2PService:
         await db.commit()
         await db.refresh(req)
 
+        # Notify receiver
+        await self.notifications.create_notification(
+            db=db,
+            user_id=receiver_id,
+            title="New Connection Request",
+            message=f"Someone wants to connect with you on CashCtrl.",
+            notification_type=NotificationType.INFO,
+            link="/social/connections"
+        )
+
+        return req
+
+    async def process_connection_request(
+        self, db: AsyncSession, user_id: uuid.UUID, request_id: uuid.UUID, accept: bool
+    ):
