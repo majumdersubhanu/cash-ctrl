@@ -58,3 +58,4 @@ class GoalService:
         else:
             goal.percent_complete = 0.0
 
+        return goal
