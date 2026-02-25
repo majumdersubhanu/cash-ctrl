@@ -88,3 +88,10 @@ class HealthAuditService:
                 "total_liquid_assets": total_liquid,
                 "months_covered": round(emergency_fund_months, 1),
                 "status": "Healthy" if emergency_fund_months >= 6 else "Building"
+            },
+            "budget_health": {
+                "total_budgets": len(budgets),
+                "over_budget_count": over_budget_categories,
+                "score": 100 if len(budgets) == 0 else round((1 - (over_budget_categories / len(budgets))) * 100, 2)
+            }
+        }
