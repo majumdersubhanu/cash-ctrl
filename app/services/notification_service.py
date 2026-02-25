@@ -58,3 +58,18 @@ class NotificationService:
             notification.is_read = True
             await db.commit()
             await db.refresh(notification)
+            
+        return notification
+
+    async def mark_all_as_read(self, db: AsyncSession, user_id: uuid.UUID) -> int:
+        """
+        Mark all unread notifications for a user as read.
+        """
+        stmt = (
+            update(Notification)
+            .where(Notification.user_id == user_id, Notification.is_read.is_(False))
+            .values(is_read=True)
+        )
+        result = await db.execute(stmt)
+        await db.commit()
+        return result.rowcount
