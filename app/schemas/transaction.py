@@ -43,3 +43,15 @@ class TransferCreate(BaseModel):
 class TransactionFilter(BaseModel):
     account_id: Optional[UUID] = None
     category_id: Optional[UUID] = None
+    start_date: Optional[date] = None
+    end_date: Optional[date] = None
+    min_amount: Optional[float] = None
+    max_amount: Optional[float] = None
+    keyword: Optional[str] = None
+    tags: Optional[list[str]] = None
+    sort_by: Optional[str] = "date"  # "date" or "amount"
+    sort_order: Optional[str] = "desc"  # "asc" or "desc"
+
+
+class BulkDeleteRequest(BaseModel):
+    transaction_ids: list[UUID]
