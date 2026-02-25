@@ -73,3 +73,18 @@ class RecurringTransactionService:
                     timestamp=None,  # defaults to now
                 )
 
+                # Increment date
+                if job.frequency == "Daily":
+                    job.next_run_date += relativedelta(days=1)
+                elif job.frequency == "Weekly":
+                    job.next_run_date += relativedelta(weeks=1)
+                elif job.frequency == "Monthly":
+                    job.next_run_date += relativedelta(months=1)
+                elif job.frequency == "Yearly":
+                    job.next_run_date += relativedelta(years=1)
+
+                processed_count += 1
+            except Exception as e:
+                print(f"Failed to process job {job.id}: {e}")
+
+        await db.commit()
