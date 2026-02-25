@@ -1,0 +1,69 @@
+ACTUAL DUPLICATE (PATH, METHOD) COMBINATIONS:
+No identical (path, method) combinations found.
+
+LIST OF ALL ENDPOINTS:
+['GET', 'HEAD'] /openapi.json | fastapi.applications | openapi
+['GET', 'HEAD'] /docs | fastapi.applications | swagger_ui_html
+['GET', 'HEAD'] /docs/oauth2-redirect | fastapi.applications | swagger_ui_redirect
+['GET', 'HEAD'] /redoc | fastapi.applications | redoc_html
+['GET'] / | app.main | root
+['GET'] /health | app.main | health_check
+['POST'] /api/v1/auth/jwt/login | fastapi_users.router.auth | auth:jwt.login
+['POST'] /api/v1/auth/jwt/logout | fastapi_users.router.auth | auth:jwt.logout
+['POST'] /api/v1/auth/register | fastapi_users.router.register | register:register
+['POST'] /api/v1/auth/forgot-password | fastapi_users.router.reset | reset:forgot_password
+['POST'] /api/v1/auth/reset-password | fastapi_users.router.reset | reset:reset_password
+['POST'] /api/v1/auth/request-verify-token | fastapi_users.router.verify | verify:request-token
+['POST'] /api/v1/auth/verify | fastapi_users.router.verify | verify:verify
+['GET'] /api/v1/users/me | fastapi_users.router.users | users:current_user
+['PATCH'] /api/v1/users/me | fastapi_users.router.users | users:patch_current_user
+['GET'] /api/v1/users/{id} | fastapi_users.router.users | users:user
+['PATCH'] /api/v1/users/{id} | fastapi_users.router.users | users:patch_user
+['DELETE'] /api/v1/users/{id} | fastapi_users.router.users | users:delete_user
+['POST'] /api/v1/accounts/ | app.api.v1.accounts | create_account
+['GET'] /api/v1/accounts/ | app.api.v1.accounts | list_accounts
+['GET'] /api/v1/accounts/{account_id} | app.api.v1.accounts | get_account
+['PATCH'] /api/v1/accounts/{account_id} | app.api.v1.accounts | update_account
+['DELETE'] /api/v1/accounts/{account_id} | app.api.v1.accounts | delete_account
+['POST'] /api/v1/categories/ | app.api.v1.categories | create_category
+['GET'] /api/v1/categories/ | app.api.v1.categories | list_categories
+['POST'] /api/v1/transactions/ | app.api.v1.transactions | create_transaction
+['POST'] /api/v1/transactions/filter | app.api.v1.transactions | filter_transactions
+['POST'] /api/v1/transactions/transfer | app.api.v1.transactions | create_transfer
+['POST'] /api/v1/transactions/bulk-delete | app.api.v1.transactions | bulk_delete_transactions
+['POST'] /api/v1/p2p/contacts | app.api.v1.p2p | create_contact
+['GET'] /api/v1/p2p/contacts | app.api.v1.p2p | list_contacts
+['POST'] /api/v1/p2p/connections/send | app.api.v1.p2p | send_connection
+['PATCH'] /api/v1/p2p/connections/{request_id} | app.api.v1.p2p | process_connection
+['POST'] /api/v1/p2p/loans | app.api.v1.p2p | create_loan
+['GET'] /api/v1/p2p/loans | app.api.v1.p2p | list_loans
+['POST'] /api/v1/p2p/loans/{loan_id}/fund | app.api.v1.p2p | fund_loan
+['POST'] /api/v1/p2p/loans/{loan_id}/repay | app.api.v1.p2p | repay_loan
+['POST'] /api/v1/p2p/loans/{loan_id}/settle | app.api.v1.p2p | settle_loan
+['POST'] /api/v1/p2p/loans/{loan_id}/dispute | app.api.v1.p2p | dispute_loan
+['GET'] /api/v1/social/vouch-score | app.api.v1.social | get_my_vouch_score
+['GET'] /api/v1/social/contacts/{contact_id}/ledger | app.api.v1.social | get_contact_public_ledger
+['POST'] /api/v1/mfa/setup | app.api.v1.mfa | setup_mfa
+['POST'] /api/v1/mfa/verify | app.api.v1.mfa | verify_mfa
+['GET'] /api/v1/audit/ | app.api.v1.audit | get_financial_audit
+['GET'] /api/v1/analytics/monthly-expense | app.api.v1.analytics | monthly_expense
+['GET'] /api/v1/analytics/category-spending | app.api.v1.analytics | category_spending
+['GET'] /api/v1/analytics/cashflow-trends | app.api.v1.analytics | cashflow_trends
+['GET'] /api/v1/analytics/safe-to-spend | app.api.v1.analytics | safe_to_spend
+['GET'] /api/v1/analytics/anomalies | app.api.v1.analytics | get_anomalies
+['POST'] /api/v1/budgets/ | app.api.v1.budgets | create_budget
+['GET'] /api/v1/budgets/ | app.api.v1.budgets | list_budgets
+['POST'] /api/v1/goals/ | app.api.v1.goals | create_goal
+['GET'] /api/v1/goals/ | app.api.v1.goals | list_goals
+['POST'] /api/v1/goals/{goal_id}/contribute | app.api.v1.goals | contribute_to_goal
+['POST'] /api/v1/recurring-transactions/ | app.api.v1.recurring_transactions | create_recurring_job
+['GET'] /api/v1/recurring-transactions/ | app.api.v1.recurring_transactions | list_recurring_jobs
+['POST'] /api/v1/recurring-transactions/process | app.api.v1.recurring_transactions | process_due_jobs
+['GET'] /api/v1/data/export/csv | app.api.v1.data | export_csv
+['GET'] /api/v1/data/export/json | app.api.v1.data | export_json
+['POST'] /api/v1/data/import-csv | app.api.v1.data | import_transactions_csv
+['GET'] /api/v1/gamification/streaks | app.api.v1.gamification | get_streaks
+['GET'] /api/v1/gamification/achievements | app.api.v1.gamification | get_achievements
+['GET'] /api/v1/notifications/ | app.api.v1.notifications | list_notifications
+['PATCH'] /api/v1/notifications/{notification_id} | app.api.v1.notifications | update_notification
+['POST'] /api/v1/notifications/mark-all-read | app.api.v1.notifications | mark_all_read
