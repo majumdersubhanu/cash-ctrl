@@ -28,3 +28,18 @@ class Transaction(Base, UUIDMixin, TimestampMixin):
 
     user_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("users.id"))
 
+    account_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("accounts.id"))
+    category_id: Mapped[Optional[uuid.UUID]] = mapped_column(
+        ForeignKey("categories.id")
+    )
+
+    type: Mapped[TransactionType]
+
+    amount: Mapped[Decimal] = mapped_column(Numeric(12, 2))
+
+    description: Mapped[Optional[str]] = mapped_column(Text)
+    note: Mapped[Optional[str]] = mapped_column(Text)
+    receipt_url: Mapped[Optional[str]] = mapped_column(String)
+
+    transaction_date: Mapped[datetime.date] = mapped_column(Date)
+
