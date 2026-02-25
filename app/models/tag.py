@@ -13,3 +13,13 @@ if TYPE_CHECKING:
 
 
 class Tag(Base, UUIDMixin, TimestampMixin):
+    __tablename__ = "tags"
+
+    user_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("users.id"))
+    name: Mapped[str] = mapped_column(String)
+    color: Mapped[Optional[str]] = mapped_column(String)
+
+    user: Mapped["User"] = relationship(backref="tags")
+    transactions: Mapped[List["Transaction"]] = relationship(
+        secondary="transaction_tags", back_populates="tags"
+    )
