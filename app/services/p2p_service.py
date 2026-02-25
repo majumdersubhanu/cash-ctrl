@@ -148,3 +148,18 @@ class P2PService:
             Contact.id == payload.contact_id, Contact.user_id == user_id
         )
         result = await db.execute(stmt)
+        contact = result.scalar_one_or_none()
+
+        if not contact:
+            raise ContactNotFoundError("Invalid contact ID")
+
+        loan = Loan(
+            user_id=user_id,
+            contact_id=contact.id,
+            is_lending=payload.is_lending,
+            amount=payload.amount,
+            currency=payload.currency,
+            interest_rate=payload.interest_rate,
+            description=payload.description,
+            funding_account_id=payload.funding_account_id,
+            status=LoanStatus.PENDING,
