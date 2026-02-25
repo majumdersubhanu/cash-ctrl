@@ -43,3 +43,18 @@ class NotificationService:
         return list(result.scalars().all())
 
     async def mark_as_read(
+        self, db: AsyncSession, user_id: uuid.UUID, notification_id: uuid.UUID
+    ) -> Optional[Notification]:
+        """
+        Mark a notification as read.
+        """
+        stmt = select(Notification).where(
+            Notification.id == notification_id, Notification.user_id == user_id
+        )
+        result = await db.execute(stmt)
+        notification = result.scalar_one_or_none()
+        
+        if notification:
+            notification.is_read = True
+            await db.commit()
+            await db.refresh(notification)
