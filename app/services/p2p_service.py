@@ -313,3 +313,18 @@ class P2PService:
             contact_stmt = select(Contact).where(Contact.id == loan.contact_id)
             contact = (await db.execute(contact_stmt)).scalar_one_or_none()
             if contact:
+                contact.trust_score = min(100.0, contact.trust_score + 5.0)
+
+            # Increase Vouch Score for the Borrower
+            from app.models.user import User
+
+            borrower_id = loan.contact_id if loan.is_lending else user_id
+            borrower_stmt = select(User).where(User.id == borrower_id)
+            borrower = (await db.execute(borrower_stmt)).scalar_one_or_none()
+            if borrower:
+                borrower.vouch_score += (
+                    15.0  # Positive reputation boost for clearing loan
+                )
+                logger.info("Loan fully repaid and COMPLETED", extra={"loan_id": str(loan.id), "borrower_vouch_score": borrower.vouch_score})
+
+        await db.commit()
