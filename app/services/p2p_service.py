@@ -238,3 +238,18 @@ class P2PService:
     async def get_user_loans(
         self, db: AsyncSession, user_id: uuid.UUID
     ) -> Sequence[Loan]:
+        stmt = select(Loan).where(Loan.user_id == user_id)
+        result = await db.execute(stmt)
+        return result.scalars().all()
+
+    async def repay_loan(
+        self, db: AsyncSession, user_id: uuid.UUID, loan_id: uuid.UUID, payload
+    ) -> Loan:
+        """
+        Submit a repayment. Applies logic to LoanInstallment logic or lump sums,
+        and dynamically generates an Income (if lending) or Expense (if borrowing)
+        financial record inside the user's primary Ledger matching `payload.account_id`.
+        """
+        stmt = select(Loan).where(Loan.id == loan_id, Loan.user_id == user_id)
+        result = await db.execute(stmt)
+        loan = result.scalar_one_or_none()
