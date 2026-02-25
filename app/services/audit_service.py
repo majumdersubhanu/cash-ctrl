@@ -73,3 +73,18 @@ class HealthAuditService:
                 Transaction.type == TransactionType.EXPENSE,
                 func.extract('month', Transaction.transaction_date) == now.month
             )
+            spent = float((await db.execute(cat_exp_stmt)).scalar() or 0.0)
+            if spent > b.amount:
+                over_budget_categories += 1
+
+        return {
+            "summary": {
+                "monthly_income": monthly_income,
+                "monthly_expense": monthly_expense,
+                "net_savings": monthly_income - monthly_expense,
+                "savings_rate_pct": round(savings_rate * 100, 2)
+            },
+            "emergency_fund": {
+                "total_liquid_assets": total_liquid,
+                "months_covered": round(emergency_fund_months, 1),
+                "status": "Healthy" if emergency_fund_months >= 6 else "Building"
