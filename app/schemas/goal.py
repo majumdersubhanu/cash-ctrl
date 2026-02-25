@@ -13,3 +13,18 @@ class GoalCreate(BaseModel):
     deadline: Optional[date] = None
 
 
+class GoalContribute(BaseModel):
+    amount: Decimal
+
+
+class GoalResponse(BaseModel):
+    id: UUID
+    account_id: Optional[UUID] = None
+    name: str
+    target_amount: Decimal
+    current_amount: Decimal
+    deadline: Optional[date] = None
+
+    # Computed runtime
+    percent_complete: Optional[float] = 0.0
+
