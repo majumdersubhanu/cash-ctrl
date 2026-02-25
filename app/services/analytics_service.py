@@ -148,3 +148,14 @@ class AnalyticsService:
             if tx.category_id and str(tx.category_id) in avgs:
                 avg = avgs[str(tx.category_id)]
                 if avg > 0 and float(tx.amount) > (avg * 2):  # 2x the normal average
+                    anomalies.append(
+                        {
+                            "id": str(tx.id),
+                            "amount": float(tx.amount),
+                            "description": tx.description,
+                            "date": tx.transaction_date.isoformat(),
+                            "normal_average": avg,
+                        }
+                    )
+
+        return anomalies
