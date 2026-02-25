@@ -43,3 +43,18 @@ class RecurringTransactionService:
 
     async def process_due_transactions(
         self, db: AsyncSession, user_id: uuid.UUID
+    ) -> int:
+        """
+        Evaluates the existing recurring templates. If a template is past its next_run_date,
+        it evaluates standard transaction logging through `TransactionService` and increments
+        the next runtime based on the defined `frequency` (Daily, Weekly, Monthly, Yearly).
+        """
+        today = date.today()
+        stmt = select(RecurringTransaction).where(
+            RecurringTransaction.user_id == user_id,
+            RecurringTransaction.is_active.is_(True),
+            RecurringTransaction.next_run_date <= today,
+        )
+
+        result = await db.execute(stmt)
+        due_jobs = result.scalars().all()
