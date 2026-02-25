@@ -13,3 +13,18 @@ class ReportService:
         """
         output = io.StringIO()
         writer = csv.writer(output)
+        
+        # Headers
+        writer.writerow(["Date", "Amount", "Type", "Note", "Category ID", "Account ID"])
+        
+        for tx in transactions:
+            writer.writerow([
+                tx.transaction_date,
+                float(tx.amount),
+                tx.type.value,
+                tx.note or "",
+                tx.category_id,
+                tx.account_id
+            ])
+            
+        output.seek(0)
