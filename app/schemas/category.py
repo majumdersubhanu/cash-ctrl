@@ -13,3 +13,10 @@ class CategoryCreate(BaseModel):
 
 
 class CategoryResponse(BaseModel):
+    id: UUID
+    name: str
+    type: CategoryType
+    parent_id: UUID | None = None
+    created_at: datetime
+
+    model_config = ConfigDict(from_attributes=True)
