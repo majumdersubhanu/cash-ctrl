@@ -58,3 +58,15 @@ class GamificationService:
         total_txs = (await db.execute(count_stmt)).scalar() or 0
 
         if total_txs >= 100:
+            achievements.append(
+                {"name": "Centurion Tracker", "description": "Logged 100 transactions."}
+            )
+        if total_txs >= 1000:
+            achievements.append(
+                {
+                    "name": "Grandmaster Ledger",
+                    "description": "Logged over 1,000 transactions!",
+                }
+            )
+
+        return achievements
