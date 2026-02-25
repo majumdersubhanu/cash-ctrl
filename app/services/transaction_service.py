@@ -118,3 +118,14 @@ class TransactionService:
     async def bulk_delete_transactions(
         self, db: AsyncSession, user_id: uuid.UUID, transaction_ids: list[uuid.UUID]
     ) -> int:
+        from sqlalchemy import delete
+
+        # Ensure we only delete matching user scopes
+        stmt = delete(Transaction).where(
+            Transaction.user_id == user_id, Transaction.id.in_(transaction_ids)
+        )
+
+        result = await db.execute(stmt)
+        await db.commit()
+        logger.info("Bulk transactions deleted", extra={"user_id": str(user_id), "deleted_count": result.rowcount})
+        return result.rowcount
