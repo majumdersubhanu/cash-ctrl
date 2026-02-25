@@ -58,3 +58,16 @@ class LoanResponse(BaseModel):
     interest_rate: Optional[Decimal]
     status: LoanStatus
     is_disputed: bool
+    description: Optional[str]
+    funding_account_id: Optional[UUID]
+    created_at: datetime.datetime
+
+    agreements: list[LoanAgreementResponse] = []
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class RepayLoanRequest(BaseModel):
+    amount: Decimal
+    account_id: UUID
+    note: Optional[str] = None
