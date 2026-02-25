@@ -28,3 +28,18 @@ class TransactionRepository(BaseRepository[Transaction]):
         return result.scalars().all()
 
     async def filter_transactions(
+        self,
+        db: AsyncSession,
+        user_id: uuid.UUID,
+        account_id: Optional[uuid.UUID] = None,
+        category_id: Optional[uuid.UUID] = None,
+        start_date: Optional[date] = None,
+        end_date: Optional[date] = None,
+        min_amount: Optional[float] = None,
+        max_amount: Optional[float] = None,
+        keyword: Optional[str] = None,
+        tags: Optional[list[str]] = None,
+        sort_by: Optional[str] = "date",
+        sort_order: Optional[str] = "desc",
+    ) -> Sequence[Transaction]:
+
