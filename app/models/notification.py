@@ -13,3 +13,18 @@ if TYPE_CHECKING:
 
 class NotificationType(str, Enum):
     INFO = "INFO"
+    SUCCESS = "SUCCESS"
+    WARNING = "WARNING"
+    ALERT = "ALERT"
+
+class Notification(Base, UUIDMixin, TimestampMixin):
+    __tablename__ = "notifications"
+
+    user_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("users.id"))
+    
+    title: Mapped[str] = mapped_column(String(255))
+    message: Mapped[str] = mapped_column(Text)
+    type: Mapped[NotificationType] = mapped_column(
+        SQLEnum(NotificationType), default=NotificationType.INFO
+    )
+    
