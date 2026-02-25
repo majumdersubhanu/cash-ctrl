@@ -73,3 +73,18 @@ class AnalyticsService:
             if period not in trends:
                 trends[period] = {"income": 0.0, "expense": 0.0}
 
+            if row.type == TransactionType.INCOME:
+                trends[period]["income"] = float(row.total)
+            else:
+                trends[period]["expense"] = float(row.total)
+
+        return trends
+
+    async def get_safe_to_spend(self, db: AsyncSession, user_id: uuid.UUID) -> float:
+        """
+        Calculates 'Safe-to-Spend' balance:
+        (Total Cash/Bank Account Balances) - (Upcoming Scheduled Expenses + Remaining Active Budgets)
+        """
+        now = datetime.now()
+
+        # 1. Total liquid assets
