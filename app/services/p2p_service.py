@@ -58,3 +58,18 @@ class P2PService:
         )
         from app.models.user import User
 
+        # Verify receiver exists
+        user_stmt = select(User).where(User.id == receiver_id)
+        receiver = (await db.execute(user_stmt)).scalar_one_or_none()
+        if not receiver:
+            raise ContactNotFoundError("Receiver not found.")
+
+        req = ConnectionRequest(
+            sender_id=sender_id,
+            receiver_id=receiver_id,
+            status=ConnectionRequestStatus.PENDING,
+        )
+        db.add(req)
+        await db.commit()
+        await db.refresh(req)
+
