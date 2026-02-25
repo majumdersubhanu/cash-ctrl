@@ -13,3 +13,18 @@ class AccountCreate(BaseModel):
     balance: float = 0.0
 
 
+class AccountUpdate(BaseModel):
+    name: str | None = None
+    type: AccountType | None = None
+    currency: str | None = None
+    balance: float | None = None
+    is_archived: bool | None = None
+
+
+class AccountResponse(BaseModel):
+    id: UUID
+    name: str
+    type: AccountType
+    currency: str
+    balance: float
+    is_archived: bool
