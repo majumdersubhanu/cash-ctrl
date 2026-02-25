@@ -43,3 +43,7 @@ class ReportService:
                 "type": tx.type.value,
                 "note": tx.note,
                 "category_id": str(tx.category_id) if tx.category_id else None,
+                "account_id": str(tx.account_id)
+            })
+            
+        return json.dumps(data, indent=2)
