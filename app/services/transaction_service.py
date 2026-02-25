@@ -58,3 +58,18 @@ class TransactionService:
 
         db.add(tx)
         await db.commit()
+        await db.refresh(tx)
+
+        logger.info("Transaction created", extra={"user_id": str(user_id), "transaction_id": str(tx.id), "amount": float(amount), "type": tx_type})
+        return tx
+
+    async def transfer_funds(
+        self,
+        db: AsyncSession,
+        user_id: uuid.UUID,
+        from_account_id: uuid.UUID,
+        to_account_id: uuid.UUID,
+        amount: float,
+        note: Optional[str] = None,
+    ) -> tuple[Transaction, Transaction]:
+
