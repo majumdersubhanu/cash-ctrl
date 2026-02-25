@@ -208,3 +208,18 @@ class P2PService:
 
         if not loan.funding_account_id:
             raise ValueError(
+                "A funding account must be specified before funding a loan."
+            )
+
+        # Emit the ledger transaction automatically!
+        # If user is Lending -> It's an Expense leaving their account
+        # If user is Borrowing -> It's Income entering their account
+        tx_type = TransactionType.EXPENSE if loan.is_lending else TransactionType.INCOME
+        note = (
+            f"{'Sent' if loan.is_lending else 'Received'} funds for P2P Loan {loan.id}"
+        )
+
+        await self.tx_service.create_transaction(
+            db=db,
+            user_id=user_id,
+            account_id=loan.funding_account_id,
