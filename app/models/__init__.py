@@ -13,3 +13,18 @@ from app.models.loan import Loan, LoanAgreement, LoanInstallment
 from app.models.connection_request import ConnectionRequest
 from app.models.notification import Notification
 
+__all__ = [
+    "User",
+    "Account",
+    "Category",
+    "Transaction",
+    "Budget",
+    "Goal",
+    "RecurringTransaction",
+    "Debt",
+    "Tag",
+    "UserPreference",
+    "Contact",
+    "Loan",
+    "LoanAgreement",
+    "LoanInstallment",
