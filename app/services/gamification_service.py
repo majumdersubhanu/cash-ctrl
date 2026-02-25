@@ -43,3 +43,18 @@ class GamificationService:
 
         streak = await self.get_no_spend_streak(db, user_id)
         if streak >= 7:
+            achievements.append(
+                {"name": "Frugal Week", "description": "7 day zero-spending streak!"}
+            )
+        if streak >= 30:
+            achievements.append(
+                {"name": "Zen Master", "description": "30 days zero-spending streak!"}
+            )
+
+        # Count total recorded transactions
+        count_stmt = select(func.count(Transaction.id)).where(
+            Transaction.user_id == user_id
+        )
+        total_txs = (await db.execute(count_stmt)).scalar() or 0
+
+        if total_txs >= 100:
