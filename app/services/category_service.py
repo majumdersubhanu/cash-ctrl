@@ -28,3 +28,5 @@ class CategoryService:
 
     async def get_categories_by_type(
         self, db: AsyncSession, user_id: uuid.UUID, category_type: CategoryType
+    ):
+        return await self.repo.get_by_type(db, user_id, category_type)
