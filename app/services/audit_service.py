@@ -58,3 +58,18 @@ class HealthAuditService:
         # Calculate avg monthly expense (last 3 months)
         # Assuming we just use the current month if history is short for simplicity in this baseline
         emergency_fund_months = 0.0
+        if monthly_expense > 0:
+            emergency_fund_months = total_liquid / monthly_expense
+
+        # 4. Budget Adherence
+        budget_stmt = select(Budget).where(Budget.user_id == user_id)
+        budgets = (await db.execute(budget_stmt)).scalars().all()
+        
+        over_budget_categories = 0
+        for b in budgets:
+            cat_exp_stmt = select(func.sum(Transaction.amount)).where(
+                Transaction.user_id == user_id,
+                Transaction.category_id == b.category_id,
+                Transaction.type == TransactionType.EXPENSE,
+                func.extract('month', Transaction.transaction_date) == now.month
+            )
