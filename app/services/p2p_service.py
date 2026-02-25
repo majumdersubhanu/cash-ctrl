@@ -283,3 +283,18 @@ class P2PService:
             .where(
                 LoanInstallment.loan_id == loan.id, LoanInstallment.is_paid.is_(False)
             )
+            .order_by(LoanInstallment.due_date.asc())
+        )
+
+        result = await db.execute(installment_stmt)
+        installments = result.scalars().all()
+
+        remaining_repayment = payload.amount
+        for install in installments:
+            if remaining_repayment <= 0:
+                break
+
+            balance_due = install.amount_due - install.amount_paid
+            if remaining_repayment >= balance_due:
+                install.amount_paid = install.amount_due
+                install.is_paid = True
