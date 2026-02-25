@@ -13,3 +13,10 @@ class ConnectionRequestResponse(BaseModel):
     sender_id: uuid.UUID
     receiver_id: uuid.UUID
     status: ConnectionRequestStatus
+    created_at: datetime.datetime
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class ConnectionRequestUpdate(BaseModel):
+    status: ConnectionRequestStatus
