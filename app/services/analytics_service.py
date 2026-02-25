@@ -43,3 +43,18 @@ class AnalyticsService:
             {"category_id": str(row.category_id), "total": float(row.total)}
             for row in result.all()
         ]
+
+    async def get_cashflow_trends(
+        self, db: AsyncSession, user_id: uuid.UUID, months: int = 6
+    ):
+        """Returns monthly income vs expenses over the last `months`."""
+        start_date = datetime.now().date() - relativedelta(months=months)
+
+        stmt = (
+            select(
+                extract("year", Transaction.transaction_date).label("year"),
+                extract("month", Transaction.transaction_date).label("month"),
+                Transaction.type,
+                func.sum(Transaction.amount).label("total"),
+            )
+            .where(
