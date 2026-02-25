@@ -193,3 +193,18 @@ class P2PService:
         logger.info("P2P Loan created successfully", extra={"loan_id": str(loan.id), "lender_id": str(user_id) if payload.is_lending else str(contact.id)})
         return loan
 
+    async def fund_loan(
+        self, db: AsyncSession, user_id: uuid.UUID, loan_id: uuid.UUID
+    ) -> Loan:
+        stmt = select(Loan).where(Loan.id == loan_id, Loan.user_id == user_id)
+        result = await db.execute(stmt)
+        loan = result.scalar_one_or_none()
+
+        if not loan:
+            raise ValueError("Loan not found")
+
+        if loan.status != LoanStatus.PENDING:
+            raise ValueError("Loan must be in PENDING status to fund")
+
+        if not loan.funding_account_id:
+            raise ValueError(
