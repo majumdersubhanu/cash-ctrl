@@ -43,3 +43,18 @@ class LoanCreate(BaseModel):
     currency: Optional[str] = "USD"
     interest_rate: Optional[Decimal] = None
     description: Optional[str] = None
+    funding_account_id: Optional[UUID] = None
+
+    # Optional agreement nested payload
+    agreement: Optional[LoanAgreementCreate] = None
+
+
+class LoanResponse(BaseModel):
+    id: UUID
+    contact_id: UUID
+    is_lending: bool
+    amount: Decimal
+    currency: str
+    interest_rate: Optional[Decimal]
+    status: LoanStatus
+    is_disputed: bool
