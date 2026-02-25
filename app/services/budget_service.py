@@ -58,3 +58,18 @@ class BudgetService:
             if budget.end_date:
                 tx_stmt = tx_stmt.where(Transaction.transaction_date <= budget.end_date)
             else:
+                # If no strict range, just fallback to month boundaries
+                now = datetime.now()
+                start_of_month = now.replace(
+                    day=1, hour=0, minute=0, second=0, microsecond=0
+                )
+                tx_stmt = tx_stmt.where(
+                    Transaction.transaction_date >= start_of_month.date()
+                )
+
+            spent = await db.execute(tx_stmt)
+            budget.spent_amount = spent.scalar_one()
+
+            budget.remaining_amount = budget.amount - budget.spent_amount
+            budget.is_overrun = budget.remaining_amount < 0
+
