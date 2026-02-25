@@ -13,3 +13,14 @@ class NotificationBase(BaseModel):
 class NotificationCreate(NotificationBase):
     user_id: uuid.UUID
 
+class NotificationUpdate(BaseModel):
+    is_read: bool
+
+class NotificationResponse(NotificationBase):
+    id: uuid.UUID
+    user_id: uuid.UUID
+    is_read: bool
+    created_at: datetime
+
+    class Config:
+        from_attributes = True
