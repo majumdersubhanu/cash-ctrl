@@ -43,3 +43,12 @@ class Transaction(Base, UUIDMixin, TimestampMixin):
 
     transaction_date: Mapped[datetime.date] = mapped_column(Date)
 
+    transfer_id: Mapped[Optional[uuid.UUID]] = mapped_column(
+        ForeignKey("transactions.id")
+    )
+
+    account: Mapped["Account"] = relationship(backref="transactions")
+    category: Mapped[Optional["Category"]] = relationship(backref="transactions")
+    tags: Mapped[List["Tag"]] = relationship(
+        secondary=transaction_tags, back_populates="transactions"
+    )
