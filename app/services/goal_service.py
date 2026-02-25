@@ -43,3 +43,18 @@ class GoalService:
         stmt = select(Goal).where(Goal.user_id == user_id, Goal.id == goal_id)
         result = await db.execute(stmt)
         goal = result.scalar_one_or_none()
+
+        if not goal:
+            raise ValueError("Goal not found")
+
+        goal.current_amount += amount
+        await db.commit()
+        await db.refresh(goal)
+
+        if goal.target_amount > 0:
+            goal.percent_complete = round(
+                float(goal.current_amount / goal.target_amount) * 100, 2
+            )
+        else:
+            goal.percent_complete = 0.0
+
