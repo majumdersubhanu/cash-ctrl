@@ -13,3 +13,18 @@ if TYPE_CHECKING:
 
 
 class Category(Base, UUIDMixin, TimestampMixin):
+    __tablename__ = "categories"
+
+    user_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("users.id"))
+
+    name: Mapped[str]
+    type: Mapped[CategoryType]
+
+    color: Mapped[Optional[str]] = mapped_column(String)
+    icon: Mapped[Optional[str]] = mapped_column(String)
+
+    parent_id: Mapped[Optional[uuid.UUID]] = mapped_column(ForeignKey("categories.id"))
+
+    user: Mapped["User"] = relationship(backref="categories")
+    parent: Mapped[Optional["Category"]] = relationship(
+        remote_side="Category.id", backref="children"
