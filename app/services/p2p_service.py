@@ -253,3 +253,18 @@ class P2PService:
         stmt = select(Loan).where(Loan.id == loan_id, Loan.user_id == user_id)
         result = await db.execute(stmt)
         loan = result.scalar_one_or_none()
+
+        if not loan:
+            raise ValueError("Loan not found")
+
+        if loan.status != LoanStatus.ACTIVE:
+            raise ValueError("Loan must be ACTIVE to accept repayments.")
+
+        # Ledger integration
+        tx_type = TransactionType.INCOME if loan.is_lending else TransactionType.EXPENSE
+        note = (
+            payload.note
+            or f"{'Received' if loan.is_lending else 'Sent'} repayment for P2P Loan {loan.id}"
+        )
+
+        await self.tx_service.create_transaction(
