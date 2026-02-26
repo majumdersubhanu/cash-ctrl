@@ -1,0 +1,15 @@
+from fastapi import APIRouter
+from app.api.v1 import (
+    accounts,
+    categories,
+    transactions,
+    p2p,
+    social,
+    mfa,
+    audit,
+    analytics,
+    budgets,
+    goals,
+    recurring_transactions,
+    data,
+    gamification,
