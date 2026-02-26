@@ -58,3 +58,18 @@ async def filter_transactions(
         min_amount=payload.min_amount,
         max_amount=payload.max_amount,
         keyword=payload.keyword,
+        tags=payload.tags,
+        sort_by=payload.sort_by,
+        sort_order=payload.sort_order,
+    )
+
+
+@router.post("/transfer", response_model=list[TransactionResponse])
+async def create_transfer(
+    payload: TransferCreate,
+    user: User = Depends(current_active_user),
+    db: AsyncSession = Depends(get_db),
+    service: TransactionService = Depends(get_transaction_service),
+):
+    try:
+        expense, income = await service.transfer_funds(
