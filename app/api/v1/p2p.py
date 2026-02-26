@@ -43,3 +43,18 @@ async def create_contact(
 
 
 @router.get("/contacts", response_model=List[ContactResponse])
+async def list_contacts(
+    user: User = Depends(current_active_user),
+    db: AsyncSession = Depends(get_db),
+    service: P2PService = Depends(get_p2p_service),
+):
+    return await service.get_user_contacts(db, user.id)
+
+
+# Connection Requests
+
+
+@router.post("/connections/send", response_model=ConnectionRequestResponse)
+async def send_connection(
+    payload: ConnectionRequestCreate,
+    user: User = Depends(current_active_user),
