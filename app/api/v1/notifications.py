@@ -43,3 +43,16 @@ async def update_notification(
     if not notification:
         raise HTTPException(status_code=404, detail="Notification not found")
         
+    return notification
+
+@router.post("/mark-all-read")
+async def mark_all_read(
+    user: User = Depends(current_active_user),
+    db: AsyncSession = Depends(get_db),
+    service: NotificationService = Depends(get_notification_service),
+):
+    """
+    Mark all unread notifications for the current user as read.
+    """
+    count = await service.mark_all_as_read(db, user.id)
+    return {"status": "ok", "marked_read_count": count}
