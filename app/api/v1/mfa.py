@@ -13,3 +13,18 @@ router = APIRouter(tags=["security"])
 class MFAVerifyPayload(BaseModel):
     token: str
 
+
+@router.post("/setup")
+async def setup_mfa(
+    user: User = Depends(current_active_user),
+    db: AsyncSession = Depends(get_db),
+):
+    if user.is_mfa_enabled:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="MFA is already enabled."
+        )
+
+    # Generate a new 16-character base32 secret
+    secret = pyotp.random_base32()
+    user.totp_secret = secret
+    db.add(user)
