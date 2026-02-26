@@ -163,3 +163,18 @@ def upgrade() -> None:
     sa.Column('id', sa.Uuid(), nullable=False),
     sa.Column('created_at', sa.DateTime(timezone=True), nullable=False),
     sa.Column('updated_at', sa.DateTime(timezone=True), nullable=False),
+    sa.ForeignKeyConstraint(['account_id'], ['accounts.id'], ),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
+    sa.PrimaryKeyConstraint('id')
+    )
+    op.create_table('loans',
+    sa.Column('user_id', fastapi_users_db_sqlalchemy.generics.GUID(), nullable=False),
+    sa.Column('contact_id', sa.Uuid(), nullable=False),
+    sa.Column('is_lending', sa.Boolean(), nullable=False),
+    sa.Column('amount', sa.Numeric(precision=12, scale=2), nullable=False),
+    sa.Column('currency', sa.String(), nullable=False),
+    sa.Column('interest_rate', sa.Numeric(precision=5, scale=2), nullable=True),
+    sa.Column('status', sa.Enum('PENDING', 'ACTIVE', 'COMPLETED', 'OVERDUE', 'CANCELLED', 'DEFAULTED', name='loanstatus'), nullable=False),
+    sa.Column('is_disputed', sa.Boolean(), nullable=False),
+    sa.Column('description', sa.Text(), nullable=True),
+    sa.Column('attachment_url', sa.String(), nullable=True),
