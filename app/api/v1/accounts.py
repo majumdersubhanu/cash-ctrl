@@ -43,3 +43,18 @@ async def list_accounts(
 ):
     return await service.get_accounts(db, user.id)
 
+@router.get("/{account_id}", response_model=AccountResponse)
+async def get_account(
+    account_id: uuid.UUID,
+    user: User = Depends(current_active_user),
+    db: AsyncSession = Depends(get_db),
+    service: AccountService = Depends(get_account_service),
+):
+    try:
+        acct = await service.get_account(db, account_id)
+        if acct.user_id != user.id:
+            raise HTTPException(status_code=403, detail="Access denied")
+        return acct
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+
