@@ -58,3 +58,18 @@ async def get_account(
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
 
+
+@router.patch("/{account_id}", response_model=AccountResponse)
+async def update_account(
+    account_id: uuid.UUID,
+    payload: AccountUpdate,
+    user: User = Depends(current_active_user),
+    db: AsyncSession = Depends(get_db),
+    service: AccountService = Depends(get_account_service),
+):
+    try:
+        update_data = payload.model_dump(exclude_unset=True)
+        return await service.update_account(db, account_id, user.id, **update_data)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
