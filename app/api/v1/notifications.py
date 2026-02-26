@@ -13,3 +13,18 @@ router = APIRouter(tags=["notifications"])
 async def get_notification_service() -> NotificationService:
     return NotificationService()
 
+@router.get("/", response_model=List[NotificationResponse])
+async def list_notifications(
+    unread_only: bool = False,
+    user: User = Depends(current_active_user),
+    db: AsyncSession = Depends(get_db),
+    service: NotificationService = Depends(get_notification_service),
+):
+    """
+    List all notifications for the current user.
+    """
+    return await service.get_user_notifications(db, user.id, unread_only)
+
+@router.patch("/{notification_id}", response_model=NotificationResponse)
+async def update_notification(
+    notification_id: uuid.UUID,
