@@ -58,3 +58,18 @@ async def test_update_account(client: AsyncClient):
     assert data["name"] == "New Name"
     assert data["balance"] == 200.0
 
+@pytest.mark.asyncio
+async def test_delete_account(client: AsyncClient):
+    create_response = await client.post("/api/v1/accounts", json={
+        "name": "To Delete",
+        "type": "WALLET",
+        "balance": 10.0,
+        "currency": "USD"
+    })
+    acct_id = create_response.json()["id"]
+
+    response = await client.delete(f"/api/v1/accounts/{acct_id}")
+    assert response.status_code == 200
+
+    get_res = await client.get(f"/api/v1/accounts/{acct_id}")
+    assert get_res.status_code == 404
