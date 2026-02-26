@@ -88,3 +88,11 @@ async def create_transfer(
 @router.post("/bulk-delete")
 async def bulk_delete_transactions(
     payload: BulkDeleteRequest,
+    user: User = Depends(current_active_user),
+    db: AsyncSession = Depends(get_db),
+    service: TransactionService = Depends(get_transaction_service),
+):
+    deleted_count = await service.bulk_delete_transactions(
+        db=db, user_id=user.id, transaction_ids=payload.transaction_ids
+    )
+    return {"status": "ok", "deleted_count": deleted_count}
