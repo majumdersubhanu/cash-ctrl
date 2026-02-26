@@ -43,3 +43,18 @@ async def test_get_account(client: AsyncClient):
 async def test_update_account(client: AsyncClient):
     create_response = await client.post("/api/v1/accounts", json={
         "name": "Old Name",
+        "type": "BANK",
+        "balance": 100.0,
+        "currency": "USD"
+    })
+    acct_id = create_response.json()["id"]
+
+    response = await client.patch(f"/api/v1/accounts/{acct_id}", json={
+        "name": "New Name",
+        "balance": 200.0
+    })
+    assert response.status_code == 200
+    data = response.json()
+    assert data["name"] == "New Name"
+    assert data["balance"] == 200.0
+
