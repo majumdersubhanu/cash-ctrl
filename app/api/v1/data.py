@@ -28,3 +28,18 @@ async def export_csv(
     user: User = Depends(current_active_user),
     db: AsyncSession = Depends(get_db),
     tx_service: TransactionService = Depends(get_tx_service),
+    report_service: ReportService = Depends(get_report_service),
+):
+    """
+    Export all transactions of the user as a CSV file.
+    """
+    transactions = await tx_service.tx_repo.get_user_transactions(db, user.id, limit=5000)
+    csv_file = report_service.export_transactions_csv(transactions)
+    
+    return StreamingResponse(
+        io.BytesIO(csv_file.getvalue().encode("utf-8")),
+        media_type="text/csv",
+        headers={"Content-Disposition": f"attachment; filename=transactions_export.csv"}
+    )
+
+@router.get("/export/json")
