@@ -58,3 +58,18 @@ async def list_contacts(
 async def send_connection(
     payload: ConnectionRequestCreate,
     user: User = Depends(current_active_user),
+    db: AsyncSession = Depends(get_db),
+    service: P2PService = Depends(get_p2p_service),
+):
+    try:
+        return await service.send_connection_request(
+            db=db, sender_id=user.id, receiver_id=payload.receiver_id
+        )
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+
+@router.patch("/connections/{request_id}", response_model=ConnectionRequestResponse)
+async def process_connection(
+    request_id: uuid.UUID,
+    payload: ConnectionRequestUpdate,
