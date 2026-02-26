@@ -43,3 +43,18 @@ async def export_csv(
     )
 
 @router.get("/export/json")
+async def export_json(
+    user: User = Depends(current_active_user),
+    db: AsyncSession = Depends(get_db),
+    tx_service: TransactionService = Depends(get_tx_service),
+    report_service: ReportService = Depends(get_report_service),
+):
+    """
+    Export all transactions of the user as a JSON file.
+    """
+    transactions = await tx_service.tx_repo.get_user_transactions(db, user.id, limit=5000)
+    json_data = report_service.export_transactions_json(transactions)
+    
+    return Response(
+        content=json_data,
+        media_type="application/json",
