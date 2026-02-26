@@ -43,3 +43,18 @@ async def verify_mfa(
     payload: MFAVerifyPayload,
     user: User = Depends(current_active_user),
     db: AsyncSession = Depends(get_db),
+):
+    if not user.totp_secret:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="MFA setup has not been initiated.",
+        )
+
+    totp = pyotp.TOTP(user.totp_secret)
+    if not totp.verify(payload.token):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid TOTP token."
+        )
+
+    # Token is valid, enable MFA globally for the user if it wasn't already.
+    if not user.is_mfa_enabled:
