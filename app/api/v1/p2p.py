@@ -73,3 +73,18 @@ async def send_connection(
 async def process_connection(
     request_id: uuid.UUID,
     payload: ConnectionRequestUpdate,
+    user: User = Depends(current_active_user),
+    db: AsyncSession = Depends(get_db),
+    service: P2PService = Depends(get_p2p_service),
+):
+    try:
+        from app.models.connection_request import ConnectionRequestStatus
+
+        accept = payload.status == ConnectionRequestStatus.ACCEPTED
+        return await service.process_connection_request(
+            db=db, user_id=user.id, request_id=request_id, accept=accept
+        )
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+
