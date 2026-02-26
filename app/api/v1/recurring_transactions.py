@@ -43,3 +43,12 @@ async def list_recurring_jobs(
 @router.post("/process")
 async def process_due_jobs(
     user: User = Depends(current_active_user),
+    db: AsyncSession = Depends(get_db),
+    service: RecurringTransactionService = Depends(get_recurring_service),
+):
+    """
+    Evaluates next_run_date constraints across templates, logs pending transactions
+    to the ledger, and bumps the next run dates based on periodicity rules.
+    """
+    count = await service.process_due_transactions(db=db, user_id=user.id)
+    return {"status": "ok", "jobs_evaluated": count}
