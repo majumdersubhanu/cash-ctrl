@@ -28,3 +28,8 @@ async def create_category(
 
 @router.get("/", response_model=list[CategoryResponse])
 async def list_categories(
+    user: User = Depends(current_active_user),
+    db: AsyncSession = Depends(get_db),
+    service: CategoryService = Depends(get_category_service),
+):
+    return await service.get_user_categories(db, user.id)
