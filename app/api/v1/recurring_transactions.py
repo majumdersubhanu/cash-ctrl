@@ -28,3 +28,18 @@ async def create_recurring_job(
     try:
         return await service.create_recurring(db=db, user_id=user.id, payload=payload)
     except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+
+@router.get("/", response_model=list[RecurringTransactionResponse])
+async def list_recurring_jobs(
+    user: User = Depends(current_active_user),
+    db: AsyncSession = Depends(get_db),
+    service: RecurringTransactionService = Depends(get_recurring_service),
+):
+    return await service.get_user_recurring(db, user.id)
+
+
+@router.post("/process")
+async def process_due_jobs(
+    user: User = Depends(current_active_user),
