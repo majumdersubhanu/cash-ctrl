@@ -28,3 +28,18 @@ async def create_transaction(
     service: TransactionService = Depends(get_transaction_service),
 ):
     try:
+        return await service.create_transaction(
+            db=db,
+            user_id=user.id,
+            account_id=payload.account_id,
+            category_id=payload.category_id,
+            amount=payload.amount,
+            tx_type=payload.type,
+            note=payload.note,
+        )
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+
+@router.post("/filter", response_model=list[TransactionResponse])
+async def filter_transactions(
