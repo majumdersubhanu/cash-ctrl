@@ -103,3 +103,18 @@ async def create_loan(
 
 @router.get("/loans", response_model=List[LoanResponse])
 async def list_loans(
+    user: User = Depends(current_active_user),
+    db: AsyncSession = Depends(get_db),
+    service: P2PService = Depends(get_p2p_service),
+):
+    return await service.get_user_loans(db, user.id)
+
+
+@router.post("/loans/{loan_id}/fund", response_model=LoanResponse)
+async def fund_loan(
+    loan_id: uuid.UUID,
+    user: User = Depends(current_active_user),
+    db: AsyncSession = Depends(get_db),
+    service: P2PService = Depends(get_p2p_service),
+):
+    try:
