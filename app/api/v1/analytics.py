@@ -58,3 +58,5 @@ async def get_anomalies(
     db: AsyncSession = Depends(get_db),
     service: AnalyticsService = Depends(get_analytics_service),
 ):
+    anomalies = await service.detect_anomalies(db, user.id)
+    return {"anomalies": anomalies}
