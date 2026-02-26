@@ -58,3 +58,8 @@ async def verify_mfa(
 
     # Token is valid, enable MFA globally for the user if it wasn't already.
     if not user.is_mfa_enabled:
+        user.is_mfa_enabled = True
+        db.add(user)
+        await db.commit()
+
+    return {"status": "ok", "message": "MFA verified successfully."}
