@@ -58,3 +58,18 @@ async def export_json(
     return Response(
         content=json_data,
         media_type="application/json",
+        headers={"Content-Disposition": f"attachment; filename=transactions_export.json"}
+    )
+
+
+@router.post("/import-csv")
+async def import_transactions_csv(
+    account_id: uuid.UUID,
+    file: UploadFile = File(...),
+    user: User = Depends(current_active_user),
+    db: AsyncSession = Depends(get_db),
+    service: TransactionService = Depends(get_tx_service),
+):
+    """
+    Very basic CSV import assuming standard "Type,Amount,Description" mapping.
+    """
