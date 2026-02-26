@@ -28,3 +28,18 @@ async def create_goal(
         return await service.create_goal(db=db, user_id=user.id, payload=payload)
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
+
+
+@router.get("/", response_model=list[GoalResponse])
+async def list_goals(
+    user: User = Depends(current_active_user),
+    db: AsyncSession = Depends(get_db),
+    service: GoalService = Depends(get_goal_service),
+):
+    return await service.get_user_goals(db, user.id)
+
+
+@router.post("/{goal_id}/contribute", response_model=GoalResponse)
+async def contribute_to_goal(
+    goal_id: uuid.UUID,
+    payload: GoalContribute,
