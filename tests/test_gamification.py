@@ -13,3 +13,8 @@ async def test_get_gamification_streaks_empty(client: AsyncClient):
 
 @pytest.mark.asyncio
 async def test_get_achievements_empty(client: AsyncClient):
+    response = await client.get("/api/v1/gamification/achievements")
+    assert response.status_code == 200
+    data = response.json()
+    assert "achievements" in data
+    assert len(data["achievements"]) == 0
