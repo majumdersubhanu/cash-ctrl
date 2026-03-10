@@ -159,3 +159,61 @@ class AnalyticsService:
                     )
 
         return anomalies
+
+    async def get_fire_insights(self, db: AsyncSession, user_id: uuid.UUID):
+        """
+        Calculates FIRE (Financial Independence, Retire Early) insights.
+        Uses the 4% rule: FIRE Number = (Yearly Expenses) * 25.
+        """
+        now = datetime.now()
+        
+        # 1. Get average monthly income & expenses (last 6 months)
+        start_date = now.date() - relativedelta(months=6)
+        stmt = (
+            select(Transaction.type, func.avg(Transaction.amount).label("avg_amt"))
+            .where(
+                Transaction.user_id == user_id,
+                Transaction.transaction_date >= start_date,
+                Transaction.type.in_([TransactionType.INCOME, TransactionType.EXPENSE])
+            )
+            .group_by(Transaction.type)
+        )
+        results = (await db.execute(stmt)).all()
+        
+        avg_monthly_income = 0.0
+        avg_monthly_expense = 0.0
+        for row in results:
+            if row.type == TransactionType.INCOME:
+                avg_monthly_income = float(row.avg_amt or 0.0)
+            else:
+                avg_monthly_expense = float(row.avg_amt or 0.0)
+
+        # 2. Get current net worth (liquid assets)
+        acc_stmt = select(func.sum(Account.balance)).where(
+            Account.user_id == user_id,
+            Account.type.in_(["BANK", "CASH", "WALLET"])
+        )
+        current_net_worth = float((await db.execute(acc_stmt)).scalar() or 0.0)
+
+        # 3. Calculations
+        yearly_expense = avg_monthly_expense * 12
+        fire_number = yearly_expense * 25
+        
+        monthly_savings = max(0.0, avg_monthly_income - avg_monthly_expense)
+        
+        remaining_gap = max(0.0, fire_number - current_net_worth)
+        
+        years_to_fire = None
+        if monthly_savings > 0:
+            years_to_fire = round(remaining_gap / (monthly_savings * 12), 1)
+
+        return {
+            "current_monthly_income": round(avg_monthly_income, 2),
+            "current_monthly_expense": round(avg_monthly_expense, 2),
+            "monthly_savings": round(monthly_savings, 2),
+            "current_net_worth": round(current_net_worth, 2),
+            "fire_number": round(fire_number, 2),
+            "remaining_gap": round(remaining_gap, 2),
+            "years_to_fire": years_to_fire,
+            "status": "On Track" if monthly_savings > 0 else "Needs Adjustment"
+        }

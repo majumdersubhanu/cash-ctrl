@@ -4,6 +4,7 @@ from sqlalchemy import text
 from slowapi import _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
 
+from fastapi.middleware.cors import CORSMiddleware
 from app.api.v1.router import api_router
 from app.core.auth import auth_backend
 from app.core.logging import setup_logging
@@ -29,6 +30,14 @@ app = FastAPI(
     title="CashCtrl API",
     version="1.0.0",
     lifespan=lifespan,
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # In production, this should be restricted
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 app.state.limiter = limiter

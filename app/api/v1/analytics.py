@@ -60,3 +60,12 @@ async def get_anomalies(
 ):
     anomalies = await service.detect_anomalies(db, user.id)
     return {"anomalies": anomalies}
+
+
+@router.get("/fire-insights")
+async def fire_insights(
+    user: User = Depends(current_active_user),
+    db: AsyncSession = Depends(get_db),
+    service: AnalyticsService = Depends(get_analytics_service),
+):
+    return await service.get_fire_insights(db, user.id)
